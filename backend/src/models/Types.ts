@@ -5,6 +5,10 @@ export type Player = {
   team: Team;
 };
 
+export type WaitingPlayer = Player & {
+  roomId: string;
+};
+
 export type Piece = {
   type: "pawn" | "knight" | "bishop" | "rook" | "queen" | "king";
   team: Team;
@@ -24,7 +28,12 @@ export interface Room {
   players: [Player, Player]; 
   creator: string;
   turn: Team;
+  startGame: boolean;
   board: Piece[]; 
+  captures: {
+    white: Piece[];
+    black: Piece[];
+  };
   previousMove: string[];
   gameHistory: gameMove[];
   draw: boolean;

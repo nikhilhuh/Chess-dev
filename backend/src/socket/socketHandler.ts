@@ -1,6 +1,6 @@
 import { Server, Socket } from "socket.io";
 
-const userRooms: Record<string, string> = {}; 
+const userRooms: Record<string, string> = {};
 
 function setUpSocket(io: Server): void {
   io.on("connection", (socket: Socket) => {
@@ -24,6 +24,18 @@ function setUpSocket(io: Server): void {
       userRooms[userId] = roomId;
       socket.join(roomId);
       io.to(roomId).emit("room-updated", roomId);
+    });
+
+    socket.on("match-making" , (roomId: string) => {
+      userRooms[userId] = roomId;
+      socket.join(roomId);
+      io.to(roomId).emit("room-updated" , roomId);
+    });
+
+    socket.on("match-made" , (roomId: string) => {
+      userRooms[userId] = roomId;
+      socket.join(roomId);
+      io.to(roomId).emit("room-updated" , roomId);
     });
 
     socket.on("disconnect", () => {

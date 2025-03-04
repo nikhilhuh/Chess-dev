@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { useRoom } from "../../../context/RoomContext";
 
-const RoomIdShare: React.FC<{setError: React.Dispatch<React.SetStateAction<string>>}> = ({setError}) => {
+const RoomIdShare: React.FC<{
+  setError: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ setError }) => {
+  const uid = useId();
   const { roomId } = useRoom();
   if (!roomId) return <></>;
   const [buttontext, setButtontext] = useState<string>(
@@ -21,11 +24,13 @@ const RoomIdShare: React.FC<{setError: React.Dispatch<React.SetStateAction<strin
         });
     }
   };
-  
+
   return (
     <div className="bg-gray-500 p-2 tablet:p-4 4k:p-6 text-center rounded-tr-xl rounded-tl-xl border-b-2 border-b-gray-900 flex flex-col items-center 4k:gap-2">
       <div>Invite other players by sending them this room id</div>
       <input
+        id={`${uid}RoomIDCopy`}
+        name={`${uid}RoomIDCopy`}
         type="text"
         readOnly
         value={roomId}

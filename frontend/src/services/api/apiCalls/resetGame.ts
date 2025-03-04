@@ -1,5 +1,5 @@
 import { Player } from "../../../utils/constants";
-import { axiosInstance } from "../../axiosInstance";
+import { axiosInstance } from "../../axios/axiosInstance";
 import { apiErrorHandler } from "../apiErrorHandling";
 
 export const resetGame = async (

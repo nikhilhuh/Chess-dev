@@ -1,7 +1,7 @@
 import React from "react";
-import PlayOnlineImg from "../../assets/miscellaneous/playonline.svg";
-import PlayFriendsImg from "../../assets/miscellaneous/playfriends.png";
-import ChessBoardImg from "../../assets/miscellaneous/chessboard.png";
+import PlayOnlineImg from "../../assets/images/miscellaneous/playonline.svg";
+import PlayFriendsImg from "../../assets/images/miscellaneous/playfriends.png";
+import ChessBoardImg from "../../assets/images/miscellaneous/chessboard.png";
 import { useNavigate } from "react-router-dom";
 
 const HomeOptions: React.FC = () => {

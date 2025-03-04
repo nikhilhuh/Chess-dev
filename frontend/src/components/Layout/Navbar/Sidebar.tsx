@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import HomeImg from "../../assets/miscellaneous/home.svg";
-import LogoImg from "../../assets/miscellaneous/logo.webp";
-import PLayFriendsImg from "../../assets/miscellaneous/playfriends.png";
-import PLayOnlineImg from "../../assets/miscellaneous/playonline.svg";
+import HomeImg from "../../../assets/images/miscellaneous/home.svg";
+import LogoImg from "../../../assets/images/miscellaneous/logo.webp";
+import PLayFriendsImg from "../../../assets/images/miscellaneous/playfriends.png";
+import PLayOnlineImg from "../../../assets/images/miscellaneous/playonline.svg";
 import { IoMdClose } from "react-icons/io";
 
 interface SidebarProps {
@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
                 isHome ? "bg-primaryButtonBackground text-black font-bold" : ""
               }`}
             >
-              <div className="flex items-center p-2 4k:p-4 space-x-3 cursor-pointer hover:scale-105">
+              <div className="flex items-center p-2 4k:p-4 space-x-3 cursor-pointer laptop-sm:hover:scale-105">
                 <img src={HomeImg} alt="Home " className="h-[6vw] w-[6vw] mobile-m:h-[5vw] mobile-m:w-[5vw] mobile-l:h-[4vw] mobile-l:w-[4vw] tablet:h-[3vw] tablet:w-[3vw] laptop-sm:h-[2vw] laptop-sm:w-[2vw]" />
                 <span>Home</span>
               </div>
@@ -55,7 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
                   : ""
               }`}
             >
-              <div className="flex items-center p-2 4k:p-4 space-x-3 cursor-pointer hover:scale-105">
+              <div className="flex items-center p-2 4k:p-4 space-x-3 cursor-pointer laptop-sm:hover:scale-105">
                 <img
                   src={PLayFriendsImg}
                   alt="Play with Friends"
@@ -73,7 +73,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
                   : ""
               }`}
             >
-              <div className="flex items-center p-2 4k:p-4 space-x-3 cursor-pointer hover:scale-105">
+              <div className="flex items-center p-2 4k:p-4 space-x-3 cursor-pointer laptop-sm:hover:scale-105">
                 <img
                   src={PLayOnlineImg}
                   alt="Play Online"
@@ -87,11 +87,11 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
       </div>
 
       <div className="flex flex-col gap-2 laptop-l:gap-4 4k:gap-6 w-full justify-center">
-        <button className="bg-primaryButtonBackground hover:bg-primaryButtonBackgroundHover hover:scale-105 p-2 laptop-sm:px-4 laptop-sm:py-2 4k:p-4 text-black font-bold rounded-lg 4k:rounded-2xl">
+        <button className="bg-primaryButtonBackground hover:bg-primaryButtonBackgroundHover laptop-sm:hover:scale-105 p-2 laptop-sm:px-4 laptop-sm:py-2 4k:p-4 text-black font-bold rounded-lg 4k:rounded-2xl">
           Sign In
         </button>
 
-        <button className="bg-secondaryButtonBackground hover:bg-secondaryButtonBackgroundHover hover:scale-105 p-2 laptop-sm:px-4 laptop-sm:py-2 4k:p-4 text-white font-bold rounded-lg 4k:rounded-2xl">
+        <button className="bg-secondaryButtonBackground hover:bg-secondaryButtonBackgroundHover laptop-sm:hover:scale-105 p-2 laptop-sm:px-4 laptop-sm:py-2 4k:p-4 text-white font-bold rounded-lg 4k:rounded-2xl">
           Sign Up
         </button>
       </div>

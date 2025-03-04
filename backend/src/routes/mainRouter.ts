@@ -4,6 +4,7 @@ import {router as getRoomDetailsRouter} from "./roomRoutes/room-details";
 import {router as makeMoveRouter} from "./gameRoutes/make-move";
 import {router as resetGameRouter} from "./gameRoutes/reset-game";
 import {router as leaveRoomRouter} from "./roomRoutes/leave-room";
+import {router as randomMatchRouter} from "./roomRoutes/random-match";
 import express from "express";
 
 const mainRouter = express.Router();
@@ -15,5 +16,6 @@ mainRouter.use("/", getRoomDetailsRouter);
 mainRouter.use("/", makeMoveRouter);
 mainRouter.use("/", resetGameRouter);
 mainRouter.use("/", leaveRoomRouter);
+mainRouter.use("/", randomMatchRouter);
 
 export { mainRouter };

@@ -1,5 +1,6 @@
-import { getRoomDetails } from "./api/apiCalls/getRoomDetails";
-import { apiErrorHandler } from "./api/apiErrorHandling";
+
+import { getRoomDetails } from "../services/api/apiCalls/getRoomDetails";
+import { apiErrorHandler } from "../services/api/apiErrorHandling";
 import { updateLocalStorage } from "./updateLocalStorage";
 
 export const updateRoomDetails = async (roomId: string) => {

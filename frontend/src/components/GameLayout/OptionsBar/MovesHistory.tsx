@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { gameMove } from "../../utils/constants";
-import { useRoom } from "../../context/RoomContext";
+import { gameMove } from "../../../utils/constants";
+import { useRoom } from "../../../context/RoomContext";
+;
 
 const GameHistory: React.FC = () => {
   const [moves, setMoves] = useState<gameMove[]>([]);
@@ -15,8 +16,8 @@ const GameHistory: React.FC = () => {
   return (
     <div className="h-full border-[1px] border-gray-400 rounded-lg max-h-full overflow-y-auto p-2">
       <div className="flex flex-col gap-[0.5vw] text-[3vw] mobile-l:text-[2.5vw] mobile-tablet:text-[1.5vw] tablet:text-[1.5vw] laptop-sm:text-[1vw]">
-        <div className="text-center">Game History</div>
-        <ul className="list-decimal list-inside space-y-[1vw]">
+        <div className="text-center">Moves History</div>
+        <ul className="list-decimal list-inside space-y-[1vw] tablet:space-y-[0.5vw]">
           {moves &&
             moves.map((move, index) => (
               <li

@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import { Player } from "../../models/Types";
+import { Player, Room } from "../../models/Types";
 import { io } from "../../socket/socketSetUp";
 import { rooms } from "../../utils/room";
 
@@ -9,7 +9,16 @@ router.use(cors({ origin: process.env.FRONTEND_URL, methods: ["PATCH"] }));
 
 router.patch("/leave-room", (req: Request, res: Response) => {
   const { roomId, nickname } = req.body;
-  const room = rooms.get(roomId);
+
+  if (!roomId || !nickname) {
+    res.status(400).json({
+      success: false,
+      message: "Room ID and player name are required",
+    });
+    return;
+  }
+  
+  const room: Room = rooms.get(roomId);
 
   if (!room) {
     res.status(404).json({ success: false, message: "Room not found" });
@@ -17,14 +26,14 @@ router.patch("/leave-room", (req: Request, res: Response) => {
   }
 
   // Find the player
-  const player = room.players.find((p: Player) => p.nickname === nickname);
+  const player: Player = room.players.find((p: Player) => p.nickname === nickname);
 
   if (!player) {
     res.status(404).json({ success: false, message: "Player not found in the room" });
     return;
   }
 
-  const isCreator = room.creator === nickname;
+  const isCreator: boolean = room.creator === nickname;
 
   // Update player instead of removing
   player.nickname = ""; // Keep team and other info intact
@@ -41,7 +50,7 @@ router.patch("/leave-room", (req: Request, res: Response) => {
       return;
     }
   }
-
+  room.startGame = false;
   io.to(roomId).emit("room-updated", roomId);
 
   res.json({

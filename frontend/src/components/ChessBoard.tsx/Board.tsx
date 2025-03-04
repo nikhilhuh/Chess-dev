@@ -52,7 +52,7 @@ const Board: React.FC = () => {
         columns.map((col, colIndex) => {
           const position = `${col}${row}`;
           const piece = board.find((p) => p.position === position);
-          const isDarkSquare = (rowIndex + colIndex) % 2 === 1;
+          const isDarkSquare = (rowIndex + colIndex) % 2 === 1;          
 
           return (
             <div
@@ -67,36 +67,28 @@ const Board: React.FC = () => {
                   handlePieceMove(selectedPiece, selectedPosition, position);
                 }
               }}
-              className={`h-[10vw] w-[10vw] mobile-tablet:h-[7vw] mobile-tablet:w-[7vw] tablet:h-[6vw] tablet:w-[6vw] laptop-sm:w-[5vw] laptop-sm:h-[5vw] laptop-l:h-[4.5vw] laptop-l:w-[4.5vw] relative flex items-center justify-center transition
-                          ${isDarkSquare ? "bg-[#779556]" : "bg-[#E4E4C3]"}
-                          ${
-                            possibleMoves.includes(position) && "cursor-pointer"
-                          } 
-                          ${
-                            room.previousMove &&
-                            room.previousMove.includes(position) &&
-                            "bg-yellow-300 border-[1px] 4k:border-[2px] border-white"
-                          }
-                          ${
-                            selectedPosition === position &&
-                            possibleMoves.length !== 0 &&
-                            "bg-yellow-500"
-                          }
-                          ${
-                            possibleMoves.includes(position) && piece && "bg-red-500"
-                          }
-                          `}
+              className={`h-[10vw] w-[10vw] mobile-tablet:h-[7vw] mobile-tablet:w-[7vw] 
+                tablet:h-[6vw] tablet:w-[6vw] laptop-sm:w-[5vw] laptop-sm:h-[5vw] 
+                laptop-l:h-[4.5vw] laptop-l:w-[4.5vw] relative flex items-center 
+                justify-center transition 
+                ${isDarkSquare ? "bg-[#779556]" : "bg-[#E4E4C3]"} 
+                ${possibleMoves.includes(position) && piece ? "bg-red-500" : 
+                  room.previousMove.includes(position) ? "bg-yellow-300 border-[1px] 4k:border-[2px] border-white" : 
+                  selectedPosition === position && possibleMoves.length !== 0 ? "bg-yellow-500" : ""}
+                ${possibleMoves.includes(position) ? "cursor-pointer" : ""}
+    `}
+    
             >
               {/* Row Number (Top-Left) */}
               {colIndex === 0 && (
-                <span className="absolute top-0.5 left-0.5 text-[2vw] tablet:text-[1vw] text-black font-bold">
+                <span className="absolute top-0.5 left-0.5 text-[2vw] mobile-tablet:text-[1.5vw] tablet:text-[1vw] text-black font-bold">
                   {row}
                 </span>
               )}
 
               {/* Column Letter (Bottom-Right) */}
               {rowIndex === 7 && (
-                <span className="absolute bottom-0.5 right-0.5 text-[2vw] tablet:text-[1vw]  text-black font-bold">
+                <span className="absolute bottom-0.5 right-0.5 text-[2vw] mobile-tablet:text-[1.5vw] tablet:text-[1vw]  text-black font-bold">
                   {col}
                 </span>
               )}

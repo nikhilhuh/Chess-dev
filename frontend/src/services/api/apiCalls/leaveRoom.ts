@@ -1,6 +1,6 @@
 import { Player } from "../../../utils/constants";
-import { axiosInstance } from "../../axiosInstance";
-import socket from "../../socketSetup";
+import { axiosInstance } from "../../axios/axiosInstance";
+import socket from "../../socket/socketSetup";
 import { apiErrorHandler } from "../apiErrorHandling";
 
 export const leaveRoom = async (

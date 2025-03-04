@@ -1,4 +1,4 @@
-import { axiosInstance } from "../../axiosInstance";
+import { axiosInstance } from "../../axios/axiosInstance";
 import { apiErrorHandler } from "../apiErrorHandling";
 import { Piece, Player } from "../../../utils/constants";
 

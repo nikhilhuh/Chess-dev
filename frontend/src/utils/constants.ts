@@ -3,6 +3,7 @@ export type Team = "black" | "white";
 export type Player = {
   nickname: string;
   team: Team;
+  ready: boolean;
 };
 
 export type Piece = {
@@ -18,13 +19,18 @@ export type Move = {
   finalPosition: string; 
 };
 
-export type gameMove = [Move , Move];
+export type gameMove = [Move | null , Move | null]; 
 
 export interface Room {
   players: [Player, Player]; 
   creator: string;
   turn: Team;
+  startGame: boolean;
   board: Piece[]; 
+  captures: {
+    white: Piece[];
+    black: Piece[];
+  };
   previousMove: string[];
   gameHistory: gameMove[];
   draw: boolean;

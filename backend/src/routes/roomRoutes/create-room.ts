@@ -32,8 +32,13 @@ router.post("/create-room", (req: Request, res: Response) => {
     creator: nickname,
     board: generateBoard(),
     turn: "white",
+    startGame: false,
     previousMove: [],
     gameHistory: [],
+    captures: {
+      white: [],
+      black: [],
+    },
     draw: false,
     winner: null,
   };

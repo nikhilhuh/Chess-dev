@@ -7,7 +7,7 @@ import { GiExitDoor } from "react-icons/gi";
 
 const LeaveRoom: React.FC<{
   setError: React.Dispatch<React.SetStateAction<string>>;
-  onClose: () => void;
+  onClose?: () => void;
 }> = ({ setError, onClose }) => {
   const { PlayerDetails } = usePlayer();
   const { roomId } = useRoom();
@@ -20,7 +20,7 @@ const LeaveRoom: React.FC<{
       if (response && !response.success) {
         setError(response.message || "Error leaving room , please try again");
       } else if (response?.success) {
-        onClose();
+        onClose?.();
         navigate("/");
       }
     } catch (error) {

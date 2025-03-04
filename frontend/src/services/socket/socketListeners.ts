@@ -1,5 +1,5 @@
 import { Socket } from "socket.io-client";
-import { updateRoomDetails } from "./updateRoomDetails";
+import { updateRoomDetails } from "../../utils/updateRoomDetails";
 
 export const socketListeners = (socket: Socket , setReset: React.Dispatch<React.SetStateAction<boolean>>) => {
   if (!socket.connected) {
@@ -7,6 +7,10 @@ export const socketListeners = (socket: Socket , setReset: React.Dispatch<React.
   }
 
   socket.on("room-updated", async (roomId: string) => {
+    await updateRoomDetails(roomId);
+  });
+
+  socket.on("match-made", async (roomId: string) => {
     await updateRoomDetails(roomId);
   });
 

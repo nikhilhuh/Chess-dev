@@ -3,7 +3,7 @@ import { generateBoard } from "../../utils/generateBoard";
 import cors from "cors";
 import { io } from "../../socket/socketSetUp";
 import { rooms } from "../../utils/room";
-import { Player, Room } from "../../models/Types";
+import { Room } from "../../models/Types";
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.post("/reset-game", (req: Request, res: Response) => {
     return;
   }
 
-  const room = rooms.get(roomId);
+  const room: Room = rooms.get(roomId);
 
   if (!room) {
     res.status(404).json({ success: false, message: "Room not found" });
@@ -45,6 +45,10 @@ router.post("/reset-game", (req: Request, res: Response) => {
   room.turn = "white";
   room.previousMove = [];
   room.gameHistory = [];
+  room.captures = {
+    white: [],
+    black: [],
+  };
   room.draw = false;
   room.winner = null;
 

@@ -1,6 +1,6 @@
 import React from "react";
-import ChessGame from "../GamePageLayout/ChessGame";
-import OptionsBar from "../GamePageLayout/OptionsBar";
+import ChessGame from "../../GameLayout/ChessGame";
+import OptionsBar from "../../GameLayout/OptionsBar/OptionsBar";
 
 const MobileGameScene: React.FC = () => {
   return (

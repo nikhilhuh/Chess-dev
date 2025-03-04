@@ -1,4 +1,4 @@
-import { axiosInstance } from "../../axiosInstance";
+import { axiosInstance } from "../../axios/axiosInstance";
 import { apiErrorHandler } from "../apiErrorHandling";
 
 export const getRoomDetails = async (roomId: string) => {

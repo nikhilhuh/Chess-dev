@@ -1,18 +1,20 @@
 import { getRoomDetails } from "./getRoomDetails";
-import { apiErrorHandler } from "../apiErrorHandling";
-import { Player } from "../../../utils/constants";
 import { axiosInstance } from "../../axios/axiosInstance";
 import { updateLocalStorage } from "../../../utils/updateLocalStorage";
 import socket from "../../socket/socketSetup";
+import { apiErrorHandler } from "../apiErrorHandling";
+import { Player } from "../../../utils/constants";
 
-export const createRoom = async (nickname: Player["nickname"]) => {
+export const randomMatch = async (nickname: Player["nickname"]) => {
   try {
-    const response = await axiosInstance.post("/create-room", { nickname });
-    const { roomId } = response.data;
+    const response = await axiosInstance.post("/random-match", { nickname });
+    const { roomId , message } = response.data;
 
     updateLocalStorage("nickname", nickname);
     updateLocalStorage("roomId", roomId);
-    socket.emit("create-room", roomId);
+
+    if (message === "Matchmaking") socket.emit("match-making", roomId);
+    else if (message === "Matchmade") socket.emit("match-made", roomId);
 
     // Fetch room details and ensure it's not undefined
     const roomResponse = await getRoomDetails(roomId);

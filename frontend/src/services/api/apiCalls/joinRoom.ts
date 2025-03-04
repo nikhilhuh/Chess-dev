@@ -1,7 +1,7 @@
 import { getRoomDetails } from "./getRoomDetails";
-import { axiosInstance } from "../../axiosInstance";
-import socket from "../../socketSetup";
-import { updateLocalStorage } from "../../updateLocalStorage";
+import { axiosInstance } from "../../axios/axiosInstance";
+import { updateLocalStorage } from "../../../utils/updateLocalStorage";
+import socket from "../../socket/socketSetup";
 import { apiErrorHandler } from "../apiErrorHandling";
 import { Player } from "../../../utils/constants";
 

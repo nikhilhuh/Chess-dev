@@ -5,7 +5,7 @@ import { rooms } from "../../utils/room";
 import { switchTurn } from "../../utils/switchTurn";
 import { checkWinner } from "../../utils/checkWinner";
 import { isValidMove } from "../../utils/isValidMove";
-import { Move } from "../../models/Types";
+import { Move, Player, Room } from "../../models/Types";
 
 const router = express.Router();
 
@@ -33,13 +33,13 @@ router.post("/make-move", (req: Request, res: Response) => {
     return;
   }
 
-  const room = rooms.get(roomId);
+  const room: Room = rooms.get(roomId);
   if (!room) {
     res.status(404).json({ success: false, message: "Room not found" });
     return;
   }
 
-  const player = room.players.find((p) => p.nickname === nickname);
+  const player: Player = room.players.find((p) => p.nickname === nickname);
   if (!player) {
     res.status(400).json({ success: false, message: "Player not found" });
     return;
@@ -51,9 +51,33 @@ router.post("/make-move", (req: Request, res: Response) => {
   }
 
   // ✅ Validate if the move is legal
-  if (!isValidMove(piece.type, initialPosition, finalPosition, piece.team , room.board)) {
+  if (
+    !isValidMove(
+      piece.type,
+      initialPosition,
+      finalPosition,
+      piece.team,
+      room.board
+    )
+  ) {
     res.status(400).json({ success: false, message: "Invalid move" });
     return;
+  }
+
+  // Check if the move is capturing an opponent's piece
+  const capturedPiece = room.board.find((p) => p.position === finalPosition);
+  if (capturedPiece) {
+    // Ensure the captured piece belongs to the opponent
+    if (capturedPiece.team !== piece.team) {
+      if (piece.team === "white") {
+        room.captures.white.push(capturedPiece); // Add to white's captures
+      } else {
+        room.captures.black.push(capturedPiece); // Add to black's captures
+      }
+
+      // Remove captured piece from board
+      room.board = room.board.filter((p) => p.position !== finalPosition);
+    }
   }
 
   // ✅ Update board state
@@ -74,8 +98,8 @@ router.post("/make-move", (req: Request, res: Response) => {
     finalPosition,
   };
 
-  if (room.turn === "white"){
-    room.previousMove[0] =  initialPosition;
+  if (room.turn === "white") {
+    room.previousMove[0] = initialPosition;
     room.previousMove[1] = finalPosition;
   } else {
     room.previousMove[2] = initialPosition;

@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes";
-import Sidebar from "./components/Navbar/Sidebar";
-import Navbar from "./components/Navbar/Navbar";
+import Sidebar from "./components/Layout/Navbar/Sidebar";
+import Navbar from "./components/Layout/Navbar/Navbar";
 
 const App: React.FC = () => {
   return (

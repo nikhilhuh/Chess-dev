@@ -15,14 +15,16 @@ const ResetButton: React.FC = () => {
   };
   
   return (
-    <button
-      title="Reset Board"
-      onClick={handleResetGame}
-      className="flex gap-[1vw] tablet:min-w-[15vw] tablet:max-w-[15vw] laptop-sm:min-w-[10vw] laptop-sm:max-w-[10vw] text-center justify-center tablet:gap-[0.5vw] items-center px-[2.5vw] py-[1.5vw] tablet:px-[1vw] tablet:py-[0.8vw] bg-primaryButtonBackground hover:bg-primaryButtonBackgroundHover hover:scale-105 rounded-full shadow-xl transition"
-    >
-      <IoIosRefresh />
-      <span>Reset Game</span>
-    </button>
+   <div className="w-full flex justify-center">
+     <button
+       title="Reset Board"
+       onClick={handleResetGame}
+       className="flex gap-[1vw] text-center justify-center tablet:gap-[0.5vw] items-center px-[2.5vw] py-[1.5vw] tablet:px-[1vw] tablet:py-[0.8vw] bg-primaryButtonBackground hover:bg-primaryButtonBackgroundHover hover:scale-105 rounded-full shadow-xl transition text-[2.5vw] mobile-tablet:text-[2vw] tablet:text-[1.5vw] laptop-sm:text-[1vw]"
+     >
+       <IoIosRefresh />
+       <span>Reset Game</span>
+     </button>
+   </div>
   );
 };
 

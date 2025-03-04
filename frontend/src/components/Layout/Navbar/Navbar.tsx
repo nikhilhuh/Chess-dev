@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
-import LogoImg from "../../assets/miscellaneous/logo.webp";
+import LogoImg from "../../../assets/images/miscellaneous/logo.webp";
 
 const Navbar: React.FC = () => {
   const [isSidebar, setIsSidebar] = useState<boolean>(false);
