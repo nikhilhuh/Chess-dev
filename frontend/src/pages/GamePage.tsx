@@ -39,7 +39,7 @@ const GamePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full  w-full">
       {isLoading ? (
         <QuantumLoader />
       ) : isWaiting ? (

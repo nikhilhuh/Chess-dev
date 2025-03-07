@@ -16,26 +16,26 @@ const PlayOnline: React.FC = () => {
   }, [error]);
 
   return (
-    <>
+    <div className="flex flex-col h-full items-center justify-center gap-[10vw] mobile-tablet:gap-[5vw]">
       {error && <ErrorModal error={error} onClose={() => setError("")} />}
       {isLoading ? (
         <QuantumLoader />
       ) : (
-        <div className="flex flex-col h-full items-center justify-center mobile-tablet:flex-row gap-[10vw] mobile-tablet:gap-[5vw]">
+        <div className="flex flex-col items-center mobile-tablet:flex-row gap-[10vw] mobile-tablet:gap-[5vw]">
           <img
             src={ChessBoardImg}
             alt="ChessBoardImg"
             className="w-[80vw] mobile-m:w-[70vw] mobile-l:w-[60vw] mobile-tablet:w-[45vw] rounded-lg laptop-sm:rounded-xl"
           />
-          <div className="flex flex-col gap-2 tablet:gap-4 h-full items-center justify-center w-full">
-            <div className="w-full flex flex-col gap-2 tablet:gap-4 max-w-[60vw] tablet:max-w-[40vw]">
+          <div className="flex flex-col h-full items-center justify-center w-full">
+            <div className="w-full flex flex-col gap-2 tablet:gap-4">
               <NickName nickname={nickname} setNickName={setNickname} />
               <FindMatch nickname={nickname} setError={setError}/>
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

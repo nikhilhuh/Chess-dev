@@ -33,7 +33,7 @@ const FindMatch: React.FC<{
   return (
     <button
       onClick={handleFindMatch}
-      className="mt-2 p-2 tablet:p-4 bg-primaryButtonBackground text-[3vw] tablet:text-[2.5vw] laptop-l:text-[2vw] font-semibold font-serif rounded-xl hover:bg-primaryButtonBackgroundHover hover:scale-105 transition text-white"
+      className="p-2 4k:p-4 bg-primaryButtonBackground text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] font-semibold font-serif rounded-xl hover:bg-primaryButtonBackgroundHover hover:scale-105 transition text-white"
     >
       Find Match
     </button>

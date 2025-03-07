@@ -18,9 +18,12 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
   const isPlayOnline = location.pathname.startsWith("/online");
 
   return (
-    <div className="p-4 laptop-l:px-2 laptop-l:py-4 bg-secondaryBackground dark:bg-primarySecondary flex flex-col justify-between h-screen laptop-sm:w-[15vw] laptop-sm:max-w-[15vw] text-[5vw] mobile-m:text-[4.5vw] mobile-l:text-[4vw] tablet:text-[2.5vw] laptop-sm:text-[1.2vw] z-50">
+    <div className="p-4 laptop-l:px-2 laptop-l:py-4 4k:p-6 bg-secondaryBackground dark:bg-primarySecondary flex flex-col justify-between h-screen text-[4.5vw] mobile-m:text-[4vw] mobile-l:text-[3.5vw] mobile-tablet:text-[3vw] tablet:text-[2.5vw] laptop-sm:text-[1.5vw] laptop-l:text-[1.2vw] mobile-tablet:w-[60vw] mobile-tablet:max-w-[60vw] tablet:w-[45vw] tablet:max-w-[45vw] laptop-sm:w-[35vw] laptop-sm:max-w-[35vw] laptop-l:max-w-max z-50">
       <div className="flex justify-between">
-        <div onClick={toggleSidebar} className="laptop-sm:hidden text-[6vw] mobile-m:text-[5.5vw] mobile-l:text-[5vw] tablet:text-[3.5vw] cursor-pointer">
+        <div
+          onClick={toggleSidebar}
+          className="laptop-l:hidden text-[6vw] mobile-m:text-[5.5vw] mobile-l:text-[5vw] tablet:text-[3.5vw] cursor-pointer"
+        >
           <IoMdClose />
         </div>
         <div className="flex items-center gap-[3vw] mobile-m:gap-[2.5vw] mobile-l:gap-[2vw] tablet:gap-[1.5vw] laptop-sm:gap-[1vw]">
@@ -42,7 +45,11 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
               }`}
             >
               <div className="flex items-center p-2 4k:p-4 space-x-3 cursor-pointer laptop-sm:hover:scale-105">
-                <img src={HomeImg} alt="Home " className="h-[6vw] w-[6vw] mobile-m:h-[5vw] mobile-m:w-[5vw] mobile-l:h-[4vw] mobile-l:w-[4vw] tablet:h-[3vw] tablet:w-[3vw] laptop-sm:h-[2vw] laptop-sm:w-[2vw]" />
+                <img
+                  src={HomeImg}
+                  alt="Home "
+                  className="h-[6vw] w-[6vw] mobile-m:h-[5vw] mobile-m:w-[5vw] mobile-l:h-[4vw] mobile-l:w-[4vw] tablet:h-[3vw] tablet:w-[3vw] laptop-sm:h-[2vw] laptop-sm:w-[2vw]"
+                />
                 <span>Home</span>
               </div>
             </li>
@@ -87,13 +94,17 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar }) => {
       </div>
 
       <div className="flex flex-col gap-2 laptop-l:gap-4 4k:gap-6 w-full justify-center">
-        <button className="bg-primaryButtonBackground hover:bg-primaryButtonBackgroundHover laptop-sm:hover:scale-105 p-2 laptop-sm:px-4 laptop-sm:py-2 4k:p-4 text-black font-bold rounded-lg 4k:rounded-2xl">
-          Sign In
-        </button>
+        <Link to="/signin" onClick={toggleSidebar}>
+          <button className="bg-primaryButtonBackground w-full hover:bg-primaryButtonBackgroundHover laptop-sm:hover:scale-105 p-2 laptop-sm:px-4 laptop-sm:py-2 4k:p-4 text-black font-bold rounded-lg 4k:rounded-2xl">
+            Sign In
+          </button>
+        </Link>
 
-        <button className="bg-secondaryButtonBackground hover:bg-secondaryButtonBackgroundHover laptop-sm:hover:scale-105 p-2 laptop-sm:px-4 laptop-sm:py-2 4k:p-4 text-white font-bold rounded-lg 4k:rounded-2xl">
-          Sign Up
-        </button>
+        <Link to="/signup" onClick={toggleSidebar}>
+          <button className="bg-secondaryButtonBackground hover:bg-secondaryButtonBackgroundHover laptop-sm:hover:scale-105 p-2 laptop-sm:px-4 laptop-sm:py-2 w-full 4k:p-4 text-white font-bold rounded-lg 4k:rounded-2xl">
+            Sign Up
+          </button>
+        </Link>
       </div>
     </div>
   );

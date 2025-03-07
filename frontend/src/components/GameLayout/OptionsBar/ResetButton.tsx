@@ -19,7 +19,7 @@ const ResetButton: React.FC = () => {
      <button
        title="Reset Board"
        onClick={handleResetGame}
-       className="flex gap-[1vw] text-center justify-center tablet:gap-[0.5vw] items-center px-[2.5vw] py-[1.5vw] tablet:px-[1vw] tablet:py-[0.8vw] bg-primaryButtonBackground hover:bg-primaryButtonBackgroundHover hover:scale-105 rounded-full shadow-xl transition text-[2.5vw] mobile-tablet:text-[2vw] tablet:text-[1.5vw] laptop-sm:text-[1vw]"
+       className="flex items-center justify-center gap-[1vw] bg-primaryButtonBackground w-full p-2 4k:p-4 shadow-xl rounded-full hover:bg-primaryButtonBackgroundHover transition"
      >
        <IoIosRefresh />
        <span>Reset Game</span>

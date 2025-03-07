@@ -30,7 +30,7 @@ const LeaveRoom: React.FC<{
   return (
     <button
       onClick={handleLeaveRoom}
-      className="flex items-center justify-center gap-[1vw] bg-red-400 w-full p-2 4k:p-4 mt-1 shadow-xl rounded-full hover:bg-red-500 transition"
+      className="flex items-center justify-center gap-[1vw] bg-red-400 w-full p-2 4k:p-4 shadow-xl rounded-full hover:bg-red-500 transition"
     >
       Leave Room
       <GiExitDoor />

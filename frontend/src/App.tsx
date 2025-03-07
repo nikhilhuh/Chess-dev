@@ -8,12 +8,12 @@ const App: React.FC = () => {
   return (
     <Router>
       <div
-        className={`h-screen bg-primaryBackground text-gray-100 overflow-x-hidden flex flex-col laptop-sm:flex-row`}
+        className={`h-screen bg-primaryBackground text-gray-100 overflow-x-hidden flex flex-col laptop-l:flex-row`}
       >
-        <div className="hidden laptop-sm:block">
+        <div className="hidden laptop-l:block">
           <Sidebar />
         </div>
-        <div className="laptop-sm:hidden">
+        <div className="laptop-l:hidden">
           <Navbar />
         </div>
 
