@@ -8,7 +8,7 @@ const CreateRoom: React.FC<{
   setError: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ nickname, setError }) => {
   const navigate = useNavigate();
-  const { setisLoading } = useRoom();
+  const { setisLoading, setPrivateRoom } = useRoom();
 
   const handleCreateRoom = async () => {
     if (nickname.trim() === "") {
@@ -19,6 +19,7 @@ const CreateRoom: React.FC<{
       setisLoading(true);      
       const response = await createRoom(nickname);
       if (response && response.success && "roomId" in response) {
+        setPrivateRoom(true);
         const newRoomId = response.roomId;
         navigate(`/friends/${newRoomId}`);
       } else {

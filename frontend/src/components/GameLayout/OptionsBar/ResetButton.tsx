@@ -6,7 +6,7 @@ import { IoIosRefresh } from "react-icons/io";
 
 const ResetButton: React.FC = () => {
   const { PlayerDetails } = usePlayer();
-  const { roomId } = useRoom();
+  const { roomId } = useRoom();   
 
   if (!PlayerDetails || !roomId) return <></>;
 
@@ -15,16 +15,15 @@ const ResetButton: React.FC = () => {
   };
   
   return (
-   <div className="w-full flex justify-center">
      <button
        title="Reset Board"
        onClick={handleResetGame}
-       className="flex items-center justify-center gap-[1vw] bg-primaryButtonBackground w-full p-2 4k:p-4 shadow-xl rounded-full hover:bg-primaryButtonBackgroundHover transition"
+       className="flex gap-[1vw] text-center justify-center tablet:gap-[0.5vw] items-center px-[2.5vw] py-[1vw] tablet:px-[1vw] tablet:py-[0.6vw] bg-primaryButtonBackground hover:bg-primaryButtonBackgroundHover hover:scale-105 rounded-full shadow-xl transition"
      >
        <IoIosRefresh />
        <span>Reset Game</span>
      </button>
-   </div>
+  
   );
 };
 

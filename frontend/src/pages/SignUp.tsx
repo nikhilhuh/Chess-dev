@@ -3,17 +3,15 @@ import { useNavigate, Link } from "react-router-dom";
 import ErrorModal from "../components/Modals/ErrorModal";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
-
-type signUpUserCredentials = {
-  userName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+import { User } from "../utils/constants";
+import { useAuth } from "../context/AuthContext";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState<signUpUserCredentials>({
+  const [credentials, setCredentials] = useState<
+    User & { confirmPassword: string }
+  >({
+    name: "",
     userName: "",
     email: "",
     password: "",
@@ -25,6 +23,8 @@ const SignUp: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
+  const { signUp } = useAuth();
 
   useEffect(() => {
     setisSubmitButtonDisabled(
@@ -41,6 +41,13 @@ const SignUp: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (credentials.password !== credentials.confirmPassword) {
+      setPasswordsMatch(false);
+      setTimeout(() => {
+        setPasswordsMatch(true);
+      }, 2000);
+      return;
+    }
     setisSubmitButtonDisabled(true);
     if (
       !credentials.userName ||
@@ -52,6 +59,7 @@ const SignUp: React.FC = () => {
       return;
     }
     try {
+      await signUp(credentials);
       navigate("/");
     } catch (error) {
       setError("Sign up failed.");
@@ -66,13 +74,28 @@ const SignUp: React.FC = () => {
 
       <div className="text-center w-[80vw] mobile-m:w-[75vw] mobile-l:w-[65vw] mobile-tablet:w-[55vw] tablet:w-[50vw] laptop-sm:w-[40vw]">
         <div className="font-bold text-[4.5vw] mobile-m:text-[4vw] mobile-l:text-[3.5vw] mobile-tablet:text-[3vw] tablet:text-[2.5vw] laptop-l:text-[2vw]">
-          Sign Up for a Chess account
+          Register for a Chess account
         </div>
         <hr className="border-1 border-gray-300 mt-5 mb-4" />
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col text-start gap-4"
+          className="flex flex-col text-start gap-2"
         >
+          <label className="font-mono text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] flex flex-col gap-1 4k:gap-2">
+            Enter your name
+            <input
+              onChange={handleChange}
+              value={credentials.name}
+              aria-invalid={!!error}
+              name="name"
+              type="text"
+              id="name"
+              autoComplete="off"
+              className="outline-none bg-transparent border-2 border-gray-200 rounded-lg laptop-sm:rounded-xl 4k:rounded-3xl text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] py-1 px-2 laptop-sm:px-4 4k:px-8"
+              placeholder="Your name.."
+            />
+          </label>
+
           <label className="font-mono text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] flex flex-col gap-1 4k:gap-2">
             Enter a username
             <input
@@ -103,8 +126,11 @@ const SignUp: React.FC = () => {
             />
           </label>
 
-          <label className="font-mono text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] flex flex-col gap-1 4k:gap-2">
+          <label className={`font-mono text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] flex flex-col gap-1 4k:gap-2 ${!passwordsMatch? "relative" : ""}`}>
             Enter Password
+            {!passwordsMatch && (
+              <p className="absolute top-2 right-2 laptop-sm:right-3 laptop-sm:top-4 4k:top-6 4k:right-6 text-red-400 text-[2vw] mobile-m:text-[1.6vw] mobile-l:text-[1.4vw] mobile-tablet:text-[1.2vw] tablet:text-[1vw] laptop-sm:text-[0.8vw]">Passwords didn't match</p>
+            )}
             <div className="relative">
               <input
                 onChange={handleChange}
@@ -113,7 +139,9 @@ const SignUp: React.FC = () => {
                 name="password"
                 type={`${showPassword ? "text" : "password"}`}
                 id="pass"
-                className="outline-none bg-transparent border-2 border-gray-200 rounded-lg laptop-sm:rounded-xl 4k:rounded-3xl text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] py-1 px-2 pr-6 mobile-tablet:pr-8 laptop-sm:pr-10 4k:pr-16 laptop-sm:px-4 4k:px-8 w-full"
+                className={`outline-none bg-transparent border-2 ${
+                  !passwordsMatch ? "border-red-400" : "border-gray-200"
+                } rounded-lg laptop-sm:rounded-xl 4k:rounded-3xl text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] py-1 px-2 pr-6 mobile-tablet:pr-8 laptop-sm:pr-10 4k:pr-16 laptop-sm:px-4 4k:px-8 w-full`}
                 placeholder="*******"
               />
               <div
@@ -126,8 +154,11 @@ const SignUp: React.FC = () => {
             </div>
           </label>
 
-          <label className="font-mono text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] flex flex-col gap-1 4k:gap-2">
+          <label className={`font-mono text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] flex flex-col gap-1 4k:gap-2 ${!passwordsMatch? "relative" : ""}`}>
             Confirm Password
+            {!passwordsMatch && (
+              <p className="absolute top-2 right-2 laptop-sm:right-3 laptop-sm:top-4 4k:top-6 4k:right-6 text-red-400 text-[2vw] mobile-m:text-[1.6vw] mobile-l:text-[1.4vw] mobile-tablet:text-[1.2vw] tablet:text-[1vw] laptop-sm:text-[0.8vw]">Passwords didn't match</p>
+            )}
             <div className="relative">
               <input
                 onChange={handleChange}
@@ -136,7 +167,9 @@ const SignUp: React.FC = () => {
                 name="confirmPassword"
                 type={`${showConfirmPassword ? "text" : "password"}`}
                 id="confirmPassword"
-                className="outline-none bg-transparent border-2 border-gray-200 rounded-lg laptop-sm:rounded-xl 4k:rounded-3xl text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] py-1 px-2 pr-6 mobile-tablet:pr-8 laptop-sm:pr-10 4k:pr-16 laptop-sm:px-4 4k:px-8 w-full"
+                className={`outline-none bg-transparent border-2 ${
+                  !passwordsMatch ? "border-red-400" : "border-gray-200"
+                } rounded-lg laptop-sm:rounded-xl 4k:rounded-3xl text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2.5vw] tablet:text-[2vw] laptop-l:text-[1.5vw] py-1 px-2 pr-6 mobile-tablet:pr-8 laptop-sm:pr-10 4k:pr-16 laptop-sm:px-4 4k:px-8 w-full`}
                 placeholder="*******"
               />
               <div

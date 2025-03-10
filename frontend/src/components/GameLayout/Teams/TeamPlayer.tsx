@@ -4,30 +4,39 @@ import { Piece, Player } from "../../../utils/constants";
 import { getPieceImage } from "../../../utils/getPieceImage";
 import { useRoom } from "../../../context/RoomContext";
 
+type timeRemaining = {
+  minutes: string;
+  seconds: string;
+};
+
 const TeamPlayer: React.FC<{
   UserImg: string;
   player: Player;
-  isYourTurn: boolean;
-  isOpponentTurn: boolean;
+  isTurn: boolean;
   capturedPieces: Piece[];
-}> = ({ UserImg, player, isYourTurn, isOpponentTurn, capturedPieces }) => {
+}> = ({ UserImg, player, isTurn, capturedPieces }) => {
   const { PlayerDetails } = usePlayer();
   const { room } = useRoom();
+
+  const timeRemaining: timeRemaining = {
+    minutes: "00",
+    seconds: "00"
+  };
 
   if (!PlayerDetails || !room) return <></>;
 
   return (
-    <div className="flex w-full items-center">
+    <div className="flex w-full items-center justify-between">
       <div className="flex items-center w-[40%] max-w-[40%] gap-[2vw] mobile-tablet:gap-[1vw]">
         <div className="bg-secondaryButtonBackground rounded-lg p-1 4k:p-2">
           <img
             src={UserImg}
             alt="User image"
-            className="h-[5vw] w-[5vw] mobile-tablet:h-[4vw] mobile-tablet:w-[4vw] tablet:h-[3vw] tablet:w-[3vw] object-contain"
+            className="h-[6] w-[6vw] mobile-tablet:h-[5vw] mobile-tablet:w-[5vw] tablet:h-[4vw] tablet:w-[4vw] laptop-sm:h-[3vw] laptop-sm:w-[3vw] object-contain"
           />
         </div>
-        <div className="flex flex-col">
-          <div className="flex items-center gap-[0.3vw]">
+        <div className="flex flex-col gap-[0.2vw]">
+          <div className="flex items-center gap-[1vw] tablet:gap-[0.3vw]">
             <span className="text-[2.5vw] mobile-tablet:text-[2vw] tablet:text-[1.3vw] font-semibold">
               {player.nickname}
             </span>
@@ -36,26 +45,30 @@ const TeamPlayer: React.FC<{
                 (You)
               </span>
             )}
+            {room.startGame && isTurn && (
+                <div className="bg-green-700 h-[1.5vw] w-[1.5vw] tablet:h-[1vw] tablet:w-[1vw] rounded-full"></div>
+              
+            )}
           </div>
-          {room.startGame && (
-            <div className="text-[1.8vw] mobile-tablet:text-[1.2vw] tablet:text-[0.8vw] font-medium text-gray-200">
-            {isYourTurn ? "You are playing.." : ""}
-            {isOpponentTurn ? "Opponent is playing.." : ""}
+          <div className="flex w-full max-w-full overflow-x-auto justify-start items-baseline">
+            {capturedPieces &&
+              capturedPieces.map((piece, index) => (
+                <img
+                  key={index}
+                  src={getPieceImage(piece)}
+                  alt={`${piece.team} ${piece.type}`}
+                  className="w-auto h-[3vw] mobile-m:h-[2.5vw] mobile-l:h-[2.2vw] mobile-tablet:h-[2vw] tablet:h-[1.5vw] laptop-sm:h-[1vw] object-contain"
+                />
+              ))}
           </div>
-          )}
         </div>
       </div>
-
-      <div className="flex w-[60%] max-w-[60%] overflow-x-auto justify-center items-center">
-        {capturedPieces &&
-          capturedPieces.map((piece, index) => (
-            <img
-              key={index}
-              src={getPieceImage(piece)}
-              alt={`${piece.team} ${piece.type}`}
-              className="w-[5vw] h-[5vw] mobile-tablet:h-[4vw] mobile-tablet:w-[4vw] tablet:h-[3vw] tablet:w-[3vw] object-contain"
-            />
-          ))}
+      <div className="bg-rgbaBackground p-1 mobile-tablet:p-2 4k:p-4 text-[3vw] mobile-tablet:text-[2.2vw] tablet:text-[1.8vw] laptop-sm:text-[1.5vw] laptop-l:text-[1.2vw]">
+        <div className="flex items-center gap-[0.2vw]">
+          <span>{timeRemaining.minutes}</span>
+          <span>:</span>
+          <span>{timeRemaining.seconds}</span>
+        </div>
       </div>
     </div>
   );

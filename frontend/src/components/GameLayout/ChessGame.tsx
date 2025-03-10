@@ -3,12 +3,12 @@ import BlackTeam from "./Teams/BlackTeam";
 import Board from "../ChessBoard.tsx/Board";
 import WhiteTeam from "./Teams/WhiteTeam";
 
-const ChessGame: React.FC = () => {
+const ChessGame: React.FC<{isWaiting: boolean}> = ({isWaiting}) => {
   return (
-    <div className="flex mx-auto max-w-[80vw] mobile-tablet:max-w-[56vw] tablet:max-w-[48vw] laptop-sm:max-w-[40vw] laptop-l:max-w-[36vw] items-center">
-      <div className="flex flex-col items-start justify-center gap-[2vw] tablet:gap-[1vw] ">
+    <div className="flex items-center">
+      <div className="flex flex-col items-start justify-center gap-[1.5vw] tablet:gap-[0.5vw] ">
         <BlackTeam />
-        <Board />
+        <Board isWaiting={isWaiting}/>
         <WhiteTeam />
       </div>
     </div>

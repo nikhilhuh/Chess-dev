@@ -3,15 +3,13 @@ import { useNavigate, Link } from "react-router-dom";
 import ErrorModal from "../components/Modals/ErrorModal";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
-
-type SignInUserCredentials = {
-  userName: string;
-  password: string;
-};
+import { useAuth } from "../context/AuthContext";
+import { signInCredentials } from "../utils/constants";
 
 const SignIn: React.FC = () => {
+  const { signIn } = useAuth();
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState<SignInUserCredentials>({
+  const [credentials, setCredentials] = useState<signInCredentials>({
     userName: "",
     password: "",
   });
@@ -32,6 +30,7 @@ const SignIn: React.FC = () => {
     e.preventDefault();
     setisSubmitButtonDisabled(true);
     try {
+      await signIn(credentials)
       navigate("/");
     } catch (error) {
       setError("Sign in Failed");
@@ -46,7 +45,7 @@ const SignIn: React.FC = () => {
 
       <div className="text-center w-[80vw] mobile-m:w-[75vw] mobile-l:w-[65vw] mobile-tablet:w-[55vw] tablet:w-[50vw] laptop-sm:w-[40vw]">
         <div className="font-bold text-[4.5vw] mobile-m:text-[4vw] mobile-l:text-[3.5vw] mobile-tablet:text-[3vw] tablet:text-[2.5vw] laptop-l:text-[2vw]">
-          Sign In to your Chess account
+          Login to your Chess account
         </div>
 
         <hr className="border-1 border-gray-300 mt-5 mb-4" />

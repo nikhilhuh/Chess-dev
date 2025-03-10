@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useRoom } from "../context/RoomContext";
 import QuantumLoader from "../components/Loaders/QuantumLoader";
 import { usePlayer } from "../context/PlayerContext";
-import TabletWaitingScreen from "../components/WaitingScreens/TabletWaitingScreen";
-import MobileWaitingScreen from "../components/WaitingScreens/MobileWaitingScreen";
 import { socketListeners } from "../services/socket/socketListeners";
 import socket from "../services/socket/socketSetup";
 import TabletGameScene from "../components/Layout/ResponsiveGameScene/TabletGameScene";
@@ -42,22 +40,13 @@ const GamePage: React.FC = () => {
     <div className="relative h-full  w-full">
       {isLoading ? (
         <QuantumLoader />
-      ) : isWaiting ? (
-        <div className="h-full">
-          <div className="hidden tablet:block h-full">
-            <TabletWaitingScreen />
-          </div>
-          <div className="tablet:hidden h-full">
-            <MobileWaitingScreen />
-          </div>
-        </div>
       ) : (
         <div className="h-full">
           <div className="hidden tablet:block h-full">
-            <TabletGameScene />
+            <TabletGameScene isWaiting={isWaiting} />
           </div>
           <div className="tablet:hidden h-full">
-            <MobileGameScene />
+            <MobileGameScene isWaiting={isWaiting} />
           </div>
         </div>
       )}

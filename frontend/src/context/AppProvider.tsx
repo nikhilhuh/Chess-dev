@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import { RoomProvider } from "./RoomContext";
 import { PlayerProvider } from "./PlayerContext";
+import { AuthProvider } from "./AuthContext";
 
-// Create an AppProvider that wraps RoomProvider and PlayerProvider
+// Create an AppProvider that wraps RoomProvider , PlayerProvider and AuthProvider
 interface AppProviderProps {
   children: ReactNode;
 }
@@ -10,7 +11,9 @@ interface AppProviderProps {
 export const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <RoomProvider>
-      <PlayerProvider>{children}</PlayerProvider>
+      <PlayerProvider>
+        <AuthProvider>{children}</AuthProvider>
+      </PlayerProvider>
     </RoomProvider>
   );
 };

@@ -19,6 +19,7 @@ export default {
         primaryBackground: "#312E2B",
         secondaryBackground: "#2B2B2B",
         rgbaBackground: "rgba(0, 0, 0, 0.2)",
+        rgba2Background: "rgba(0, 0, 0, 0.3)",
         lightSquare: "#E4E4C3",
         darkSquare: "#779556",
         primaryButtonBackground: "#81B64C",

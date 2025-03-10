@@ -12,7 +12,8 @@ const BoardPiece: React.FC<{
   setError: React.Dispatch<React.SetStateAction<string>>;
   setPossibleMoves: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedPiece: React.Dispatch<React.SetStateAction<Piece | null>>;
-}> = ({ piece, setSelectedPosition, setError, setPossibleMoves , setSelectedPiece }) => {
+  isWaiting: boolean;
+}> = ({ piece, setSelectedPosition, setError, setPossibleMoves , setSelectedPiece , isWaiting }) => {
   const { roomId , room } = useRoom();
   const { PlayerDetails } = usePlayer();
 
@@ -33,11 +34,15 @@ const BoardPiece: React.FC<{
   };
 
   return (
-    <div onClick={possibleMoves}>
+    <div onClick={()=> {
+      if (!isWaiting && piece.team === PlayerDetails.team)
+        possibleMoves();
+  
+    }}>
       <img
         src={getPieceImage(piece)}
         alt={`${piece.team} ${piece.type}`}
-        className="w-full h-full object-contain z-10 cursor-pointer hover:scale-110 transition"
+        className={`w-full h-full object-contain z-10 cursor-pointer ${!isWaiting && piece.team === PlayerDetails.team? "hover:scale-110" : ""} transition`}
       />
     </div>
   );

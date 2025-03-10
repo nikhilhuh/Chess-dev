@@ -24,8 +24,8 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="bg-secondaryBackground">
-      <div className="flex justify-between px-4 py-2 font-bold items-center text-[4.5vw] mobile-m:text-[4vw] mobile-l:text-[3.5vw] mobile-tablet:text-[3vw] tablet:text-[2.5vw] laptop-sm:text-[1.5vw] laptop-l:text-[1.2vw]">
-        <div className="flex gap-[3vw] items-center">
+      <div className="flex justify-between px-4 py-2 font-bold items-center">
+        <div className="flex gap-[2vw] mobile-l:gap-[1.5vw] tablet:gap-[1vw] laptop-sm:gap-[0.5vw] items-center">
           <div
             className="text-[6.5vw] mobile-m:text-[6vw] mobile-l:text-[5.5vw] tablet:text-[3.5vw] cursor-pointer"
             onClick={toggleSidebar}
@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
             <IoMenu />
           </div>
           <Link to="/">
-            <div className="flex items-center gap-[2vw] mobile-m:gap-[1.5vw] mobile-l:gap-[1vw]">
+            <div className="flex items-center gap-[2vw] mobile-m:gap-[1.5vw] mobile-l:gap-[1vw] text-[4.5vw] mobile-m:text-[4vw] mobile-l:text-[3.5vw] mobile-tablet:text-[3vw] tablet:text-[2.5vw] laptop-sm:text-[1.5vw] laptop-l:text-[1.2vw]">
               <img
                 src={LogoImg}
                 alt="Logo"
@@ -44,11 +44,18 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
 
-        <Link to="/signin">
-          <button className="bg-secondaryButtonBackground hover:bg-secondaryButtonBackgroundHover hover:scale-105 p-1 text-white rounded-md">
-            Log In
-          </button>
-        </Link>
+        <div className="flex gap-2">
+          <Link to="/signin">
+            <button className="text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2vw] tablet:text-[1.7vw] laptop-sm:text-[1.3vw] laptop-l:text-[1vw] bg-secondaryButtonBackground hover:bg-secondaryButtonBackgroundHover hover:scale-105 p-1 text-white rounded-md">
+              Log In
+            </button>
+          </Link>
+          <Link to="/signup" className="hidden mobile-l:block">
+            <button className="text-[4vw] mobile-m:text-[3.5vw] mobile-l:text-[3vw] mobile-tablet:text-[2vw] tablet:text-[1.7vw] laptop-sm:text-[1.3vw] laptop-l:text-[1vw] bg-primaryButtonBackground hover:bg-primaryButtonBackgroundHover hover:scale-105 p-1 text-white rounded-md">
+              Sign up
+            </button>
+          </Link>
+        </div>
       </div>
 
       {isSidebar && (

@@ -26,13 +26,11 @@ const BlackTeam: React.FC = () => {
       <WaitingOpponent UserImg={UserImg} />
     );
 
-  const isYourTurn =
-    room.turn === "black" && PlayerDetails.nickname === player.nickname;
-  const isOpponentTurn =
-    room.turn === "black" && PlayerDetails.nickname !== player.nickname;
+  const isTurn =
+    room.turn === "black";
 
   return (
-    <TeamPlayer UserImg={UserImg} player={player} isYourTurn={isYourTurn} isOpponentTurn={isOpponentTurn} capturedPieces={capturedPieces}/>
+    <TeamPlayer UserImg={UserImg} player={player} isTurn={isTurn} capturedPieces={capturedPieces}/>
   );
 };
 

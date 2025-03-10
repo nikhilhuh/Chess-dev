@@ -1,3 +1,15 @@
+export type User = {
+  name: string;
+  userName: string;
+  email: string;
+  password: string;
+};
+
+export type signInCredentials = {
+  userName: string;
+  password: string;
+};
+
 export type Team = "black" | "white";
 
 export type Player = {

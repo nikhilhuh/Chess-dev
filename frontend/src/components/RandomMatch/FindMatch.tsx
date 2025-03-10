@@ -7,7 +7,7 @@ const FindMatch: React.FC<{
   nickname: string;
   setError: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ nickname, setError }) => {
-  const { setisLoading } = useRoom();
+  const { setisLoading , setPrivateRoom } = useRoom();
   const navigate = useNavigate();
 
   const handleFindMatch = async () => {
@@ -21,6 +21,7 @@ const FindMatch: React.FC<{
       const response = await randomMatch(nickname);
       if (response && response.success && "roomId" in response) {
         const newRoomId = response.roomId;
+        setPrivateRoom(false);
         navigate(`/online/${newRoomId}`);
       } else {
         setError(response?.message || "Error during matchmaking , please try again");

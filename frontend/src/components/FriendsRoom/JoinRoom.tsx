@@ -8,7 +8,7 @@ const JoinRoom: React.FC<{
   setError: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ nickname, setError }) => {
   const [roomId, setRoomId] = useState<string>("");
-    const { setisLoading } = useRoom();
+    const { setisLoading , setPrivateRoom } = useRoom();
   const navigate = useNavigate();
 
   const handleJoinRoom = async () => {
@@ -24,6 +24,7 @@ const JoinRoom: React.FC<{
     try {
       const response = await joinRoom(roomId, nickname);
       if (response?.success) {
+        setPrivateRoom(true);
         navigate(`/friends/${roomId}`);
       } else {
         setError(

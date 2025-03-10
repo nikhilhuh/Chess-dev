@@ -1,8 +1,8 @@
 import React from "react";
-import { leaveRoom } from "../../../services/api/apiCalls/leaveRoom";
+import { leaveRoom } from "../../services/api/apiCalls/leaveRoom";
 import { useNavigate } from "react-router-dom";
-import { usePlayer } from "../../../context/PlayerContext";
-import { useRoom } from "../../../context/RoomContext";
+import { usePlayer } from "../../context/PlayerContext";
+import { useRoom } from "../../context/RoomContext";
 import { GiExitDoor } from "react-icons/gi";
 
 const LeaveRoom: React.FC<{
@@ -30,7 +30,7 @@ const LeaveRoom: React.FC<{
   return (
     <button
       onClick={handleLeaveRoom}
-      className="flex items-center justify-center gap-[1vw] bg-red-400 w-full p-2 4k:p-4 shadow-xl rounded-full hover:bg-red-500 transition"
+      className="flex gap-[1vw] text-center justify-center tablet:gap-[0.5vw] items-center px-[2.5vw] py-[1vw] tablet:px-[1vw] tablet:py-[0.6vw] bg-red-400 hover:bg-red-600 hover:scale-105 rounded-full shadow-xl transition"
     >
       Leave Room
       <GiExitDoor />

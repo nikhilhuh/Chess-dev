@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BoardPiece from "./BoardPiece";
 import { useRoom } from "../../context/RoomContext";
 import { usePlayer } from "../../context/PlayerContext";
@@ -6,13 +6,29 @@ import ErrorModal from "../Modals/ErrorModal";
 import { makeMove } from "../../services/api/apiCalls/makeMove";
 import { Piece } from "../../utils/constants";
 
-const Board: React.FC = () => {
+const Board: React.FC<{isWaiting: boolean}> = ({isWaiting}) => {
   const { room, roomId } = useRoom();
   const { PlayerDetails } = usePlayer();
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [selectedPiece, setSelectedPiece] = useState<Piece | null>(null);
   const [error, setError] = useState<string>("");
   const [possibleMoves, setPossibleMoves] = useState<string[]>([]);
+  const boardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (boardRef.current && !boardRef.current.contains(event.target as Node)) {
+        setPossibleMoves([]);
+        setSelectedPiece(null);
+        setSelectedPosition(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   if (!room || !roomId || !PlayerDetails) return <></>;
   const { board } = room;
@@ -46,7 +62,7 @@ const Board: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-8 transition-transform">
+    <div ref={boardRef} className="grid grid-cols-8 w-[92vw] mobile-m:w-[90vw] mobile-tablet:w-[80vw] tablet:w-[55vw] laptop-sm:w-[45vw] laptop-l:w-[40vw]">
       {error && <ErrorModal error={error} onClose={() => setError("")} />}
       {rows.map((row, rowIndex) =>
         columns.map((col, colIndex) => {
@@ -67,9 +83,7 @@ const Board: React.FC = () => {
                   handlePieceMove(selectedPiece, selectedPosition, position);
                 }
               }}
-              className={`h-[10vw] w-[10vw] mobile-tablet:h-[7vw] mobile-tablet:w-[7vw] 
-                tablet:h-[6vw] tablet:w-[6vw] laptop-sm:w-[5vw] laptop-sm:h-[5vw] 
-                laptop-l:h-[4.5vw] laptop-l:w-[4.5vw] relative flex items-center 
+              className={`aspect-[1/1] relative flex items-center 
                 justify-center transition 
                 ${isDarkSquare ? "bg-[#779556]" : "bg-[#E4E4C3]"} 
                 ${possibleMoves.includes(position) && piece ? "bg-red-500" : 
@@ -109,6 +123,7 @@ const Board: React.FC = () => {
                   setError={setError}
                   setPossibleMoves={setPossibleMoves}
                   setSelectedPiece={setSelectedPiece}
+                  isWaiting={isWaiting}
                 />
               )}
             </div>

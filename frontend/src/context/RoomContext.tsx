@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   useState,
   useContext,
@@ -10,6 +10,8 @@ import { Room } from "../utils/constants";
 interface RoomContextType {
   room: Room | null;
   roomId: string | null;
+  privateRoom: boolean;
+  setPrivateRoom: React.Dispatch<React.SetStateAction<boolean>>;
   reset: boolean;
   setReset: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
@@ -18,6 +20,8 @@ interface RoomContextType {
 const defaultRoomContext: RoomContextType = {
   room: null,
   roomId: null,
+  privateRoom: false,
+  setPrivateRoom: () => {},
   reset: false,
   setReset: () => {},
   isLoading: true,
@@ -41,6 +45,7 @@ interface RoomProviderProps {
 export const RoomProvider = ({ children }: RoomProviderProps) => {
   const [room, setRoom] = useState<Room | null>(null);
   const [roomId, setRoomId] = useState<string | null>(null);
+  const [privateRoom, setPrivateRoom] = useState<boolean>(false);
   const [reset, setReset] = useState<boolean>(false);
   const [isLoading, setisLoading] = useState<boolean>(false);
 
@@ -73,6 +78,8 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
       value={{
         room,
         roomId,
+        privateRoom,
+        setPrivateRoom,
         reset,
         setReset,
         isLoading,
