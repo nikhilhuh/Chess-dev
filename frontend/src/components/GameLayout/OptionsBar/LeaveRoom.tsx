@@ -1,8 +1,8 @@
 import React from "react";
-import { leaveRoom } from "../../services/api/apiCalls/leaveRoom";
+import { leaveRoom } from "../../../services/api/apiCalls/leaveRoom";
 import { useNavigate } from "react-router-dom";
-import { usePlayer } from "../../context/PlayerContext";
-import { useRoom } from "../../context/RoomContext";
+import { usePlayer } from "../../../context/PlayerContext";
+import { useRoom } from "../../../context/RoomContext";
 import { GiExitDoor } from "react-icons/gi";
 
 const LeaveRoom: React.FC<{
@@ -21,7 +21,7 @@ const LeaveRoom: React.FC<{
         setError(response.message || "Error leaving room , please try again");
       } else if (response?.success) {
         onClose?.();
-        navigate("/");
+        navigate(-1);
       }
     } catch (error) {
       setError("Error Leaving Room , please try again");

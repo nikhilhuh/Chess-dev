@@ -62,7 +62,7 @@ const Board: React.FC<{isWaiting: boolean}> = ({isWaiting}) => {
   };
 
   return (
-    <div ref={boardRef} className="grid grid-cols-8 w-[92vw] mobile-m:w-[90vw] mobile-tablet:w-[80vw] tablet:w-[55vw] laptop-sm:w-[45vw] laptop-l:w-[40vw]">
+    <div ref={boardRef} className="grid grid-cols-8 w-[92vw] mobile-m:w-[90vw] mobile-tablet:w-[80vw] tablet:w-[55vw] laptop-sm:w-[42vw] laptop-l:w-[38vw]">
       {error && <ErrorModal error={error} onClose={() => setError("")} />}
       {rows.map((row, rowIndex) =>
         columns.map((col, colIndex) => {

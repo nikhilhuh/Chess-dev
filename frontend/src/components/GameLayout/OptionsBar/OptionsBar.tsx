@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import GameOptions from "./GameOptions";
 import ResetButton from "./ResetButton";
 import GameHistory from "./GameHistory";
-import LeaveRoom from "../../RoomOptions/LeaveRoom";
+import LeaveRoom from "./LeaveRoom";
 import ErrorModal from "../../Modals/ErrorModal";
 import { useRoom } from "../../../context/RoomContext";
 import { TbCopy } from "react-icons/tb";
